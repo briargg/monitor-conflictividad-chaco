@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Dashboard from "./dashboard"; 
+import Dashboard from "./Dashboard";
 import { MUNICIPIOS_CHACO } from "./municipiosChaco";
 
 export default function App() {
