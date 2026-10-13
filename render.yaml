@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: monitor-conflictividad-social
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        value: ""
+      - key: TELEGRAM_CHAT_ID
+        value: ""
+      - key: ENABLE_SCHEDULER
+        value: "false"
+      - key: DB_PATH
+        value: /tmp/conflictos.db

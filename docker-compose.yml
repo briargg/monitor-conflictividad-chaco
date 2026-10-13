@@ -1,0 +1,22 @@
+services:
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    environment:
+      - ENABLE_SCHEDULER=${ENABLE_SCHEDULER:-false}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:5173}
+    volumes:
+      - conflictos_data:/app/data
+    ports:
+      - "8000:8000"
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+volumes:
+  conflictos_data:
