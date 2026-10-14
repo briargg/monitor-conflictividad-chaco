@@ -9,11 +9,19 @@ services:
     envVars:
       - key: GROQ_API_KEY
         sync: false
+      - key: JWT_SECRET_KEY
+        sync: false
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ENABLE_SCHEDULER
+        value: "true"
+      - key: CORS_ORIGINS
+        value: "https://monitor-conflictividad-chaco.vercel.app,https://monitor-conflictividad-chaco-fig6.vercel.app,https://monitor-conflictividad-chaco-12s8.vercel.app"
+      - key: DB_PATH
+        value: /tmp/conflictos.db
       - key: TELEGRAM_BOT_TOKEN
         value: ""
       - key: TELEGRAM_CHAT_ID
         value: ""
-      - key: ENABLE_SCHEDULER
-        value: "false"
-      - key: DB_PATH
-        value: /tmp/conflictos.db
