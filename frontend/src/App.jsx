@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import Dashboard from "./Dashboard";
 import Login from "./Login";
 import { MUNICIPIOS_CHACO } from "./municipiosChaco";
-import { apifetch } from "./api";
-
+import { apiFetch } from "./api";
 export default function App() {
   const [autenticado, setAutenticado] = useState(false);
   const [tab, setTab] = useState("dashboard");
@@ -27,7 +26,7 @@ export default function App() {
     const cargarAlertas = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await apifetch("/api/alertas-nuevas", {
+        const res = await apiFetch("/api/alertas-nuevas", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.status === 401) {
@@ -60,7 +59,7 @@ export default function App() {
     setCargando(true);
     try {
       const token = localStorage.getItem("token");
-      const res = await apifetch(
+      const res = await apiFetch(
         `/api/analyze?municipio=${encodeURIComponent(municipio)}&provincia=Chaco&limite=10`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
