@@ -39,17 +39,17 @@ export default function Dashboard() {
   const [regionFiltro, setRegionFiltro] = useState("TODAS");
 
   const cargar = async () => {
-    try {
-      const res = await fetch("/api/situacion-municipios");
-      const json = await res.json();
-      setData(json);
-      setUltimaActualizacion(new Date().toLocaleString("es-AR"));
-    } catch (err) {
-      console.error("Error:", err);
-    } finally {
-      setCargando(false);
-    }
-  };
+  try {
+    const res = await apiFetch("/api/situacion-municipios");  // ← CAMBIO
+    const json = await res.json();
+    setData(json);
+    setUltimaActualizacion(new Date().toLocaleString("es-AR"));
+  } catch (err) {
+    console.error("Error:", err);
+  } finally {
+    setCargando(false);
+  }
+};
 
   useEffect(() => {
     cargar();
