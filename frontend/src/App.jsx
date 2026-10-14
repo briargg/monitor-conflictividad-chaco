@@ -27,7 +27,7 @@ export default function App() {
     const cargarAlertas = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("/api/alertas-nuevas", {
+        const res = await apiFetchch("/api/alertas-nuevas", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.status === 401) {
@@ -60,7 +60,7 @@ export default function App() {
     setCargando(true);
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(
+      const res = await apiFetch(
         `/api/analyze?municipio=${encodeURIComponent(municipio)}&provincia=Chaco&limite=10`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
