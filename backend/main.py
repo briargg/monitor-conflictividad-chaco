@@ -11,7 +11,9 @@ from informes import generar_resumen_semanal, generar_informe_mensual
 from municipios import obtener_municipios_nacional, municipios_por_provincia, obtener_region
 from scraper_chaco import buscar_noticias_chaco
 from scheduler import iniciar_scheduler
-
+from auth import autenticar_usuario, crear_token, usuario_actual
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
 load_dotenv()
 
 # Los 69 municipios del Chaco por región
@@ -271,3 +273,19 @@ def alerta_hidrologica():
     """Estado del río Paraná y alertas de crecida (INA)."""
     from fuentes_externas import obtener_alerta_hidrologica
     return obtener_alerta_hidrologica() or {"error": "Sin datos"}
+
+@app.post("/api/auth/login")
+def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    if not autenticar_usuario(form_data.username, form_data.password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Usuario o contraseña incorrectos",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    token = crear_token(form_data.username)
+    return {"access_token": token, "token_type": "bearer"}
+
+
+@app.get("/api/auth/me")
+def obtener_usuario_actual(username: str = Depends(usuario_actual)):
+    return {"username": username}

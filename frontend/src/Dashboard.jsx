@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { MUNICIPIOS_CHACO } from "./municipiosChaco";
+import { apiFetch } from "./api";
 //port "leaflet.heat";
 const NIVELES = {
   critico: { label: "CRÍTICO", color: "#ff3b5c", bg: "rgba(255,59,92,0.08)", border: "rgba(255,59,92,0.4)" },
